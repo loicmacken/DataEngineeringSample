@@ -7,6 +7,7 @@ from db_connection import DbConnection
 url = "postgresql+psycopg2://postgres:postgres@db:5432/DB"
 
 MAX_RETRIES = 5
+ENV = "test"
 
 print("Initializing database...")
 for i in range(MAX_RETRIES):
@@ -27,3 +28,9 @@ for i in range(MAX_RETRIES):
     else:
         print("Database initialized")
         break
+
+if ENV == "test":
+    import unittest
+    from country_controller_unit_test import CountryControllerUnitTest
+    test_suite = unittest.TestLoader().loadTestsFromTestCase(CountryControllerUnitTest)
+    unittest.TextTestRunner(verbosity=2).run(test_suite)
