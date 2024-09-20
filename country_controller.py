@@ -1,11 +1,13 @@
 from sqlalchemy import Engine
 
 from country import Country
+from db_connection import DbConnection
+from country_api_connection import CountryApiConnection
 
 class CountryController():
-    def __init__(self, api_url: str, engine: Engine) -> None:
-        self.api_url = api_url
-        self.engine = engine
+    def __init__(self, db_connection: DbConnection, api_connection: CountryApiConnection) -> None:
+        self.db_connection = db_connection
+        self.api_connection = api_connection
 
     def get_countries(self) -> list[Country]:
         raise NotImplementedError
