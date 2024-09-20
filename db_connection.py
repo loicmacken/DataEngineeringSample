@@ -13,6 +13,7 @@ class DbConnection():
     def insert_countries(self, countries: list[Country]) -> list[Country]:
         query = "INSERT INTO countries (name, code) VALUES "
         for country in countries:
+            country.name = country.name.replace("'", "''")
             query += f"('{country.name}', '{country.code}'), "
         query = query[:-2] + ";"
         self.execute_query(query)
