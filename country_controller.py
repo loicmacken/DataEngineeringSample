@@ -11,7 +11,7 @@ class CountryController():
 
     def get_countries(self) -> list[Country]:
         countries = self.db_connection.get_countries()
-        if countries:
+        if len(countries) > 0:
             return countries
         country_info: list[dict] = self.api_connection.get_country_info()
         for country in country_info:
