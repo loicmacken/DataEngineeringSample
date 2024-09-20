@@ -4,8 +4,8 @@ class MockCountryApiConnection(CountryApiConnection):
     def __init__(self, api_url: str="") -> None:
         self.mock_data = [
             {
-                "sISOCode":"US",
-                "sName":"United States"
+                "sISOCode": "US",
+                "sName": "United States"
             },
             {
                 "sISOCode": "IN",
