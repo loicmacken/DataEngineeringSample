@@ -12,7 +12,7 @@ api_url = "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoSe
 
 MAX_RETRIES = 5
 ENV = "prod"
-N_COUNTRIES = os.getenv("N_COUNTRIES", 5)
+N_COUNTRIES = int(os.getenv("N_COUNTRIES", 5))
 
 print("Initializing database...")
 for i in range(MAX_RETRIES):
