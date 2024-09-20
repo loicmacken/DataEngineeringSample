@@ -10,13 +10,26 @@ class CountryController():
         self.api_connection = api_connection
 
     def get_countries(self) -> list[Country]:
-        raise NotImplementedError
+        countries = self.db_connection.get_countries()
+        if countries:
+            return countries
+        country_info: list[dict] = self.api_connection.get_country_info()
+        for country in country_info:
+            countries.append(Country(country["sName"], country["sISOCode"]))
+        self.db_connection.insert_countries(countries)
+        return countries
     
     def get_country(self, code: str) -> Country:
-        raise NotImplementedError
+        country = self.db_connection.get_country(code)
+        if country:
+            return country
+        self.get_countries()
+        return self.db_connection.get_country(code)
 
     def sort_countries(self) -> list[Country]:
-        raise NotImplementedError
+        self.get_countries()
+        return self.db_connection.sort_countries()
     
     def get_first_n_countries_alphabetically(self, n: int) -> list[Country]:
-        raise NotImplementedError
+        countries = self.sort_countries()
+        return countries[:n]
