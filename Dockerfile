@@ -2,13 +2,12 @@ FROM ubuntu:latest
 
 RUN apt-get update
 RUN apt-get install python3 python3-pip -y
-RUN pip3 install --upgrade pip
 WORKDIR /app
 
 COPY ./requirements.txt /app/requirements.txt
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt --break-system-packages
 
-COPY ./test.py /app
+COPY . .
 
-CMD python3 test.py
+CMD python3 main.py
