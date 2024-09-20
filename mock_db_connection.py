@@ -1,6 +1,7 @@
 from sqlalchemy import CursorResult
 
 from db_connection import DbConnection
+from country import Country
 
 class MockDbConnection(DbConnection):
     def __init__(self) -> None:
@@ -16,7 +17,7 @@ class MockDbConnection(DbConnection):
         return []
 
     def get_country(self, code: str) -> dict:
-        return None
+        return Country("United States", "US")
     
     def sort_countries(self) -> list[dict]:
         return []
