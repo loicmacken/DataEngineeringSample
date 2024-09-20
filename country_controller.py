@@ -15,8 +15,8 @@ class CountryController():
     def get_country(self, code: str) -> Country:
         raise NotImplementedError
 
-    def sort_countries(self, countries: list[Country]) -> list[Country]:
+    def sort_countries(self) -> list[Country]:
         raise NotImplementedError
     
-    def get_top_countries(self, countries: list[Country], n: int) -> list[Country]:
+    def get_top_countries(self, n: int) -> list[Country]:
         raise NotImplementedError
