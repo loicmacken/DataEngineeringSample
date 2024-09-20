@@ -47,5 +47,5 @@ else:
     countries = controller.get_first_n_countries_alphabetically(N_COUNTRIES)
     print("Countries:")
     for country in countries:
-        print(country)
+        print(f"{country.name} ({country.code})")
     print("Done")
