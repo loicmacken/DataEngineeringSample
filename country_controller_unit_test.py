@@ -3,6 +3,7 @@ import unittest
 from mock_db_connection import MockDbConnection
 from mock_country_api_connection import MockCountryApiConnection
 from country_controller import CountryController
+from country import Country
 
 class CountryControllerUnitTest(unittest.TestCase):
     def setUp(self) -> None:
@@ -12,63 +13,39 @@ class CountryControllerUnitTest(unittest.TestCase):
 
     def test_get_country(self):
         code = "US"
-        expected_country = {
-            "name": "United States",
-            "code": "US",
-        }
+        expected_country = Country("United States", "US")
         country = self.controller.get_country(code)
         self.assertEqual(expected_country, country)
 
     def test_get_countries(self):
         expected_countries = [
-            {
-                "name": "United States",
-                "code": "US",
-            },
-            {
-                "name": "India",
-                "code": "IN",
-            },
-            {
-                "name": "China",
-                "code": "CN",
-            }
+            Country("United States", "US"),
+            Country("India", "IN"),
+            Country("China", "CN")
         ]
         countries = self.controller.get_countries()
-        self.assertEqual(expected_countries, countries)
+        for expected_country, country in zip(expected_countries, countries):
+            self.assertEqual(expected_country, country)
 
     def test_sort_countries(self):
         expected_sorted_countries = [
-            {
-                "name": "China",
-                "code": "CN",
-            },
-            {
-                "name": "India",
-                "code": "IN",
-            },
-            {
-                "name": "United States",
-                "code": "US",
-            }
+            Country("China", "CN"),
+            Country("India", "IN"),
+            Country("United States", "US")
         ]
         sorted_countries = self.controller.sort_countries()
-        self.assertEqual(expected_sorted_countries, sorted_countries)
+        for expected_country, country in zip(expected_sorted_countries, sorted_countries):
+            self.assertEqual(expected_country, country)
 
     def test_get_first_n_countries_alphabetically(self):
         n = 2
         expected_top_countries = [
-            {
-                "name": "China",
-                "code": "CN",
-            },
-            {
-                "name": "India",
-                "code": "IN",
-            }
+            Country("China", "CN"),
+            Country("India", "IN")
         ]
         top_countries = self.controller.get_first_n_countries_alphabetically(n)
-        self.assertEqual(expected_top_countries, top_countries)
+        for expected_country, country in zip(expected_top_countries, top_countries):
+            self.assertEqual(expected_country, country)
 
 if __name__ == "__main__":
     unittest.main()
