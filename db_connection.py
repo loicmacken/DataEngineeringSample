@@ -15,7 +15,7 @@ class DbConnection():
         for country in countries:
             country.name = country.name.replace("'", "''").replace('&', 'and')
             query += f"('{country.name}', '{country.code}'), "
-        query = query[:-2] + ";"
+        query = query[:-2] + " RETURNING *;"
         self.execute_query(query)
         return countries
     
@@ -23,7 +23,7 @@ class DbConnection():
         query = "SELECT * FROM countries;"
         result = self.execute_query(query)
         countries = []
-        for row in result:
+        for row in result.fetchall():
             countries.append(Country(row["name"], row["code"]))
         return countries
     
@@ -32,11 +32,3 @@ class DbConnection():
         result = self.execute_query(query)
         row = result.fetchone()
         return Country(row["name"], row["code"])
-    
-    def sort_countries(self) -> list[Country]:
-        query = "SELECT * FROM countries ORDER BY name;"
-        result = self.execute_query(query)
-        countries = []
-        for row in result:
-            countries.append(Country(row["name"], row["code"]))
-        return countries
