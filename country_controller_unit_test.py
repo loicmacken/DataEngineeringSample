@@ -11,12 +11,6 @@ class CountryControllerUnitTest(unittest.TestCase):
         self.mock_country_api_connection = MockCountryApiConnection()
         self.controller = CountryController(self.mock_db_connection, self.mock_country_api_connection)
 
-    def test_get_country(self):
-        code = "US"
-        expected_country = Country("United States", "US")
-        country = self.controller.get_country(code)
-        self.assertEqual(expected_country, country)
-
     def test_get_countries(self):
         expected_countries = [
             Country("United States", "US"),
@@ -27,23 +21,19 @@ class CountryControllerUnitTest(unittest.TestCase):
         for expected_country, country in zip(expected_countries, countries):
             self.assertEqual(expected_country, country)
 
-    def test_sort_countries(self):
-        expected_sorted_countries = [
-            Country("China", "CN"),
-            Country("India", "IN"),
-            Country("United States", "US")
-        ]
-        sorted_countries = self.controller.sort_countries()
-        for expected_country, country in zip(expected_sorted_countries, sorted_countries):
-            self.assertEqual(expected_country, country)
+    def test_get_country(self):
+        code = "US"
+        expected_country = Country("United States", "US")
+        country = self.controller.get_country(code)
+        self.assertEqual(expected_country, country)
 
-    def test_get_first_n_countries_alphabetically(self):
+    def test_get_sorted_countries(self):
         n = 2
         expected_top_countries = [
             Country("China", "CN"),
             Country("India", "IN")
         ]
-        top_countries = self.controller.get_first_n_countries_alphabetically(n)
+        top_countries = self.controller.get_sorted_countries(n)
         for expected_country, country in zip(expected_top_countries, top_countries):
             self.assertEqual(expected_country, country)
 

@@ -12,7 +12,7 @@ api_url = "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoSe
 
 MAX_RETRIES = 5
 ENV = "prod"
-N_COUNTRIES = int(os.getenv("N_COUNTRIES", 5))
+N_COUNTRIES = int(os.getenv("N_COUNTRIES", 10))
 
 print("Initializing database...")
 for i in range(MAX_RETRIES):
@@ -44,7 +44,7 @@ else:
     controller = CountryController(connection, api_connection)
 
     print(f"Getting {N_COUNTRIES} countries...")
-    countries = controller.get_first_n_countries_alphabetically(N_COUNTRIES)
+    countries = controller.get_sorted_countries(N_COUNTRIES)
     print("Countries:")
     for country in countries:
         print(f"{country.name} ({country.code})")
